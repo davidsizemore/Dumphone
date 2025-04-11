@@ -2,7 +2,7 @@
 //  AppBlocker.swift
 //  Broke
 //
-//  Created by Oz Tamir on 22/08/2024..
+//  Created by Oz Tamir on 22/08/2024.
 //
 
 import SwiftUI
