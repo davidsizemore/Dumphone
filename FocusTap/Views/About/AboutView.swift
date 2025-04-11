@@ -15,17 +15,20 @@ struct AboutView: View {
     AboutLink(url: "https://github.com/OzTamir/broke",
               text: "View original project's Github",
               image: Image("github-logo"))
-
   ]
+
   var body: some View {
     List {
-      Section("About FocusTap") {
+      Section {
         Text("FocusTap helps you stay focused by using NFC tags block apps that distract you")
           .padding(.vertical, 4)
+      } header: {
+        Text("About Fous Tap")
+          .font(.headline)
       }
       .listRowBackground(Color.secondary.opacity(0.2))
 
-      Section("Links") {
+      Section("Project Links") {
         ForEach(links) { link in
           Link(destination: URL(string: link.url)!) {
             HStack {
@@ -43,12 +46,26 @@ struct AboutView: View {
         }
       }
 
+      Section("Report a Bug") {
+        Link(destination: URL(string: "mailto:FocusTapSupport@proton.me?subject=FocusTap%20Bug%20Report")!) {
+          HStack {
+            Image(systemName: "ant.circle")
+            Text("Report a Bug")
+            Spacer()
+            Image(systemName: "envelope")
+          }
+          .frame(height: 40)
+        }
+        .listRowBackground(Color.secondary.opacity(0.2))
+        .foregroundStyle(.primary)
+      }
+
       Section("Support future development!") {
         Link(destination: URL(string: "https://buymeacoffee.com/walker123t")!) {
-            Image("buy-me-a-coffee")
-              .resizable()
-              .aspectRatio(contentMode: .fit)
-              .frame(height: 50, alignment: .center)
+          Image("buy-me-a-coffee")
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .frame(height: 40)
         }
         .listRowBackground(Color(hex: "#FFDD00"))
       }
