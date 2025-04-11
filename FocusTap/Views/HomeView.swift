@@ -19,6 +19,7 @@ struct HomeView: View {
   // MARK: - State
   @StateObject private var nfcReader = NFCReader()
   @State private var alertType: AlertType?
+  @State private var showAboutPage: Bool = false
 
   // MARK: - Alert Type
   private enum AlertType: Identifiable {
@@ -49,6 +50,7 @@ struct HomeView: View {
         mainContent(geometry: geometry)
       }
       .toolbar {
+        aboutButton
         Spacer()
         if !isBlocking {
           createTagButton
@@ -64,6 +66,9 @@ struct HomeView: View {
       case false:
         handleBlockingTag(payload: url.absoluteString, currentProfile: profileManager.currentProfile)
       }
+    }
+    .sheet(isPresented: $showAboutPage) {
+      AboutView()
     }
   }
 
@@ -108,6 +113,14 @@ struct HomeView: View {
     .frame(maxWidth: .infinity, maxHeight: .infinity)
     .frame(height: isBlocking ? geometry.size.height : geometry.size.height / 2)
     .animation(.spring(), value: isBlocking)
+  }
+
+  private var aboutButton: some View {
+    Button(action: {
+      showAboutPage.toggle()
+    }) {
+      Image(systemName: "questionmark")
+    }
   }
 
   private var createTagButton: some View {
