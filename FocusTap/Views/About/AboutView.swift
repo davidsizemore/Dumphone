@@ -8,13 +8,29 @@
 import SwiftUI
 
 struct AboutView: View {
-  let links: [AboutLink] = [
-    AboutLink(url: "https://github.com/Walker123t/FocusTap",
-              text: "View project on Github",
-              image: Image("github-logo")),
-    AboutLink(url: "https://github.com/OzTamir/broke",
-              text: "View original project's Github",
-              image: Image("github-logo"))
+  let sections: [AboutSection] = [
+    AboutSection(title: "Project Links",
+                 links: [
+                  AboutLink(url: "https://github.com/Walker123t/FocusTap",
+                            text: "View project on Github",
+                            primaryImage: Image("github-logo"),
+                            secondaryImage: Image(systemName: "arrow.up.right.square")),
+                  AboutLink(url: "https://github.com/OzTamir/broke",
+                            text: "View original project's Github",
+                            primaryImage: Image("github-logo"),
+                            secondaryImage: Image(systemName: "arrow.up.right.square"))
+                 ]),
+    AboutSection(title: "Tell Me What You Think",
+                 links: [
+                  AboutLink(url: "mailto:FocusTapSupport@proton.me?subject=FocusTap%20Bug%20Report",
+                            text: "Report a Bug",
+                            primaryImage: Image(systemName: "ant.circle"),
+                            secondaryImage: Image(systemName: "envelope")),
+                  AboutLink(url: "mailto:FocusTapSupport@proton.me?subject=FocusTap%20Feedback",
+                            text: "Feedback",
+                            primaryImage: Image(systemName: "text.bubble"),
+                            secondaryImage: Image(systemName: "envelope"))
+                 ])
   ]
 
   var body: some View {
@@ -28,36 +44,24 @@ struct AboutView: View {
       }
       .listRowBackground(Color.secondary.opacity(0.2))
 
-      Section("Project Links") {
-        ForEach(links) { link in
-          Link(destination: URL(string: link.url)!) {
-            HStack {
-              link.image
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 40, height: 40)
-              Text(link.text)
-              Spacer()
-              Image(systemName: "arrow.up.right.square")
+      ForEach(sections) { section in
+        Section(section.title) {
+          ForEach(section.links) { link in
+            Link(destination: URL(string: link.url)!) {
+              HStack {
+                link.primaryImage
+                  .resizable()
+                  .aspectRatio(contentMode: .fit)
+                  .frame(width: 40, height: 40)
+                Text(link.text)
+                Spacer()
+                link.secondaryImage
+              }
             }
+            .listRowBackground(Color.secondary.opacity(0.2))
+            .foregroundStyle(.primary)
           }
-          .listRowBackground(Color.secondary.opacity(0.2))
-          .foregroundStyle(.primary)
         }
-      }
-
-      Section("Report a Bug") {
-        Link(destination: URL(string: "mailto:FocusTapSupport@proton.me?subject=FocusTap%20Bug%20Report")!) {
-          HStack {
-            Image(systemName: "ant.circle")
-            Text("Report a Bug")
-            Spacer()
-            Image(systemName: "envelope")
-          }
-          .frame(height: 40)
-        }
-        .listRowBackground(Color.secondary.opacity(0.2))
-        .foregroundStyle(.primary)
       }
 
       Section("Support future development!") {

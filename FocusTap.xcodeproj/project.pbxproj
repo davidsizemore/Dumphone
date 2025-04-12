@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 70;
+	objectVersion = 73;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -21,13 +21,24 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Resources/Info.plist,
+				Views/About/AboutPage.json,
 			);
 			target = F5A3B05A2C733E3400BD6C7F /* FocusTap */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
+/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+		3E8881522DAAB6D90026FB87 /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			buildPhase = F5A3B0572C733E3400BD6C7F /* Sources */;
+			membershipExceptions = (
+				Views/About/AboutPage.json,
+			);
+		};
+/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		3E3EB0E72DA95F0F006F4D0B /* FocusTap */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (3E3EB0F42DA95F0F006F4D0B /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = FocusTap; sourceTree = "<group>"; };
+		3E3EB0E72DA95F0F006F4D0B /* FocusTap */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (3E3EB0F42DA95F0F006F4D0B /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 3E8881522DAAB6D90026FB87 /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = FocusTap; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,7 +121,6 @@
 				};
 			};
 			buildConfigurationList = F5A3B0562C733E3400BD6C7F /* Build configuration list for PBXProject "FocusTap" */;
-			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -121,6 +131,7 @@
 			packageReferences = (
 				F51C38E22C77E847003B4EB3 /* XCRemoteSwiftPackageReference "SFSymbolsPicker" */,
 			);
+			preferredProjectObjectVersion = 56;
 			productRefGroup = F5A3B05C2C733E3400BD6C7F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";

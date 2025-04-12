@@ -7,10 +7,18 @@
 
 import SwiftUI
 
+struct AboutSection: Identifiable {
+  let id = UUID()
+
+  let title: String
+  let links: [AboutLink]
+}
+
 struct AboutLink: Identifiable {
+  var id = UUID()
+
   let url: String
   let text: String
-  let image: Image
-  
-  var id = UUID()
+  let primaryImage: Image
+  let secondaryImage: Image
 }

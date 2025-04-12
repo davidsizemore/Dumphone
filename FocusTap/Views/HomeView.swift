@@ -50,10 +50,14 @@ struct HomeView: View {
         mainContent(geometry: geometry)
       }
       .toolbar {
-        aboutButton
-        Spacer()
+        ToolbarItem(placement: .topBarLeading) {
+          aboutButton
+        }
+
         if !isBlocking {
-          createTagButton
+          ToolbarItem(placement: .topBarTrailing) {
+            createTagButton
+          }
         }
       }
       .alert(item: $alertType, content: alertContent)
@@ -119,7 +123,7 @@ struct HomeView: View {
     Button(action: {
       showAboutPage.toggle()
     }) {
-      Image(systemName: "questionmark")
+      Image(systemName: "questionmark.circle.fill")
     }
   }
 
