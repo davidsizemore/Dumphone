@@ -7,76 +7,100 @@
 
 import SwiftUI
 
-struct AboutView: View {
-  let sections: [AboutSection] = [
-    AboutSection(title: "Project Links",
-                 links: [
-                  AboutLink(url: "https://github.com/Walker123t/FocusTap",
-                            text: "View project on Github",
-                            primaryImage: Image("github-logo"),
-                            secondaryImage: Image(systemName: "arrow.up.right.square")),
-                  AboutLink(url: "https://github.com/OzTamir/broke",
-                            text: "View original project's Github",
-                            primaryImage: Image("github-logo"),
-                            secondaryImage: Image(systemName: "arrow.up.right.square"))
-                 ]),
-    AboutSection(title: "Tell Me What You Think",
-                 links: [
-                  AboutLink(url: "mailto:FocusTapSupport@proton.me?subject=FocusTap%20Bug%20Report",
-                            text: "Report a Bug",
-                            primaryImage: Image(systemName: "ant.circle"),
-                            secondaryImage: Image(systemName: "envelope")),
-                  AboutLink(url: "mailto:FocusTapSupport@proton.me?subject=FocusTap%20Feedback",
-                            text: "Feedback",
-                            primaryImage: Image(systemName: "text.bubble"),
-                            secondaryImage: Image(systemName: "envelope"))
-                 ])
-  ]
+struct ImageWithType: View {
+  let imageName: String
+  let imageType: ImageType
+  let size: CGSize?
+
+  init(imageName: String, imageType: ImageType, size: CGSize? = nil) {
+    self.imageName = imageName
+    self.imageType = imageType
+    self.size = size
+  }
 
   var body: some View {
-    List {
-      Section {
-        Text("FocusTap helps you stay focused by using NFC tags block apps that distract you")
-          .padding(.vertical, 4)
-      } header: {
-        Text("About Fous Tap")
-          .font(.headline)
+    if let size = size {
+      switch imageType {
+      case .system:
+        Image(systemName: imageName)
+          .resizable()
+          .aspectRatio(contentMode: .fit)
+          .frame(width: size.width, height: size.height)
+      case .asset:
+        Image(imageName)
+          .resizable()
+          .aspectRatio(contentMode: .fit)
+          .frame(width: size.width, height: size.height)
       }
-      .listRowBackground(Color.secondary.opacity(0.2))
+    } else {
+      switch imageType {
+      case .system:
+        Image(systemName: imageName)
+      case .asset:
+        Image(imageName)
+      }
+    }
+  }
+}
 
-      ForEach(sections) { section in
-        Section(section.title) {
-          ForEach(section.links) { link in
-            Link(destination: URL(string: link.url)!) {
-              HStack {
-                link.primaryImage
-                  .resizable()
-                  .aspectRatio(contentMode: .fit)
-                  .frame(width: 40, height: 40)
-                Text(link.text)
-                Spacer()
-                link.secondaryImage
+struct AboutView: View {
+  let pageData: AboutPage? = AboutPage.load()
+
+  var body: some View {
+    if let data = pageData {
+      List {
+        Section {
+          Text(data.aboutSection.text)
+            .padding(.vertical, 4)
+        } header: {
+          Text(data.aboutSection.title)
+            .font(.headline)
+        }
+        .listRowBackground(Color.secondary.opacity(data.backgroundStyle.listRowBackgroundOpacity))
+
+        ForEach(data.sections, id: \.title) { section in
+          Section(section.title) {
+            ForEach(section.links, id: \.url) { link in
+              Link(destination: URL(string: link.url)!) {
+                HStack {
+                  ImageWithType(
+                    imageName: link.primaryImage,
+                    imageType: link.primaryImageType,
+                    size: CGSize(width: 40, height: 40)
+                  )
+
+                  Text(link.text)
+                  Spacer()
+
+                  ImageWithType(
+                    imageName: link.secondaryImage,
+                    imageType: link.secondaryImageType
+                  )
+                }
               }
+              .listRowBackground(Color.secondary.opacity(data.backgroundStyle.listRowBackgroundOpacity))
+              .foregroundStyle(.primary)
             }
-            .listRowBackground(Color.secondary.opacity(0.2))
-            .foregroundStyle(.primary)
           }
         }
-      }
 
-      Section("Support future development!") {
-        Link(destination: URL(string: "https://buymeacoffee.com/walker123t")!) {
-          Image("buy-me-a-coffee")
-            .resizable()
-            .aspectRatio(contentMode: .fit)
-            .frame(height: 40)
+        Section(data.supportSection.title) {
+          Link(destination: URL(string: data.supportSection.link.url)!) {
+            Image(data.supportSection.link.image)
+              .resizable()
+              .aspectRatio(contentMode: .fit)
+              .frame(height: CGFloat(data.supportSection.link.imageHeight))
+          }
+          .listRowBackground(Color(hex: data.supportSection.link.backgroundColor))
         }
-        .listRowBackground(Color(hex: "#FFDD00"))
       }
-      .navigationTitle("About")
+      .background(Color(data.backgroundStyle.mainBackground))
+      .scrollContentBackground(.hidden)
+      .navigationTitle(data.navigationTitle)
+    } else {
+      Text("Failed to load about page data")
+        .foregroundColor(.red)
     }
-    .background(Color("ProfileSectionBackground"))
-    .scrollContentBackground(.hidden)
   }
 }
 

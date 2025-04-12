@@ -21,7 +21,6 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Resources/Info.plist,
-				Views/About/AboutPage.json,
 			);
 			target = F5A3B05A2C733E3400BD6C7F /* FocusTap */;
 		};

@@ -1,3 +1,65 @@
 {
-  
+  "navigationTitle": "About",
+  "backgroundStyle": {
+    "mainBackground": "ProfileSectionBackground",
+    "listRowBackground": "secondary",
+    "listRowBackgroundOpacity": 0.2
+  },
+  "aboutSection": {
+    "title": "About Focus Tap",
+    "text": "FocusTap helps you stay focused by using NFC tags block apps that distract you"
+  },
+  "sections": [
+    {
+    "title": "Project Links",
+    "links": [
+      {
+      "url": "https://github.com/Walker123t/FocusTap",
+      "text": "View project on Github",
+      "primaryImage": "github-logo",
+      "primaryImageType": "asset",
+      "secondaryImage": "arrow.up.right.square",
+      "secondaryImageType": "system"
+      },
+      {
+      "url": "https://github.com/OzTamir/broke",
+      "text": "View original project's Github",
+      "primaryImage": "github-logo",
+      "primaryImageType": "asset",
+      "secondaryImage": "arrow.up.right.square",
+      "secondaryImageType": "system"
+      }
+    ]
+    },
+    {
+    "title": "Tell Me What You Think",
+    "links": [
+      {
+      "url": "mailto:FocusTapSupport@proton.me?subject=FocusTap%20Bug%20Report",
+      "text": "Report a Bug",
+      "primaryImage": "ant.circle",
+      "primaryImageType": "system",
+      "secondaryImage": "envelope",
+      "secondaryImageType": "system"
+      },
+      {
+      "url": "mailto:FocusTapSupport@proton.me?subject=FocusTap%20Feedback",
+      "text": "Feedback",
+      "primaryImage": "text.bubble",
+      "primaryImageType": "system",
+      "secondaryImage": "envelope",
+      "secondaryImageType": "system"
+      }
+    ]
+    }
+  ],
+  "supportSection": {
+    "title": "Support future development!",
+    "link": {
+      "url": "https://buymeacoffee.com/walker123t",
+      "image": "buy-me-a-coffee",
+      "backgroundColor": "#FFDD00",
+      "imageHeight": 40
+    }
+  }
 }
