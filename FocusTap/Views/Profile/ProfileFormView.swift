@@ -15,28 +15,27 @@ struct ProfileFormView: View {
   @State private var profileIcon: String
   @State private var showSymbolsPicker = false
   @State private var showAppSelection = false
-  @State private var activitySelection: FamilyActivitySelection
+  @State private var activitySelection: FamilyActivitySelection = .init()
   @State private var showDeleteConfirmation = false
   @State private var requireMatchingTag: Bool
   @State private var requireTagToBlock: Bool
   let profile: Profile?
   let onDismiss: () -> Void
-  
+
   init(profile: Profile? = nil, profileManager: ProfileManager, onDismiss: @escaping () -> Void) {
     self.profile = profile
     self.profileManager = profileManager
     self.onDismiss = onDismiss
+
     _profileName = State(initialValue: profile?.name ?? "")
     _profileIcon = State(initialValue: profile?.icon ?? "bell.slash")
     _requireMatchingTag = State(initialValue: profile?.requireMatchingTag ?? false)
     _requireTagToBlock = State(initialValue: profile?.requireTagToBlock ?? true)
 
-    var selection = FamilyActivitySelection()
-    selection.applicationTokens = profile?.appTokens ?? []
-    selection.categoryTokens = profile?.categoryTokens ?? []
-    _activitySelection = State(initialValue: selection)
+    activitySelection.applicationTokens = profile?.appTokens ?? []
+    activitySelection.categoryTokens = profile?.categoryTokens ?? []
   }
-  
+
   var body: some View {
     NavigationView {
       Form {
@@ -47,7 +46,7 @@ struct ProfileFormView: View {
               .foregroundColor(.secondary)
             TextField("Enter profile name", text: $profileName)
           }
-          
+
           Button(action: { showSymbolsPicker = true }) {
             HStack {
               Image(systemName: profileIcon)
@@ -61,12 +60,14 @@ struct ProfileFormView: View {
             }
           }
         }
-        
+
         Section(header: Text("App Configuration")) {
           Button(action: { showAppSelection = true }) {
             Text("Configure Blocked Apps")
           }
-          
+          .familyActivityPicker(isPresented: $showAppSelection,
+                                selection: $activitySelection)
+
           VStack(alignment: .leading, spacing: 8) {
             HStack {
               Text("Blocked Apps:")
@@ -85,10 +86,10 @@ struct ProfileFormView: View {
               .foregroundColor(.secondary)
           }
         }
-        
+
         Section(header: Text("Security")) {
           Toggle("Require matching tag to unblock", isOn: $requireMatchingTag)
-          
+
           if requireMatchingTag {
             Text("When enabled, only the tag created for this profile can unblock it")
               .font(.caption)
@@ -104,7 +105,7 @@ struct ProfileFormView: View {
               .foregroundColor(.red)
           }
         }
-        
+
         if profile != nil {
           Section {
             Button(action: { showDeleteConfirmation = true }) {
@@ -123,15 +124,6 @@ struct ProfileFormView: View {
       .sheet(isPresented: $showSymbolsPicker) {
         SymbolsPicker(selection: $profileIcon, title: "Pick an icon", autoDismiss: true)
       }
-      .sheet(isPresented: $showAppSelection) {
-        NavigationView {
-          FamilyActivityPicker(selection: $activitySelection)
-            .navigationTitle("Select Apps")
-            .navigationBarItems(trailing: Button("Done") {
-              showAppSelection = false
-            })
-        }
-      }
       .alert(isPresented: $showDeleteConfirmation) {
         Alert(
           title: Text("Delete Profile"),
@@ -147,7 +139,7 @@ struct ProfileFormView: View {
       }
     }
   }
-  
+
   private func handleSave() {
     if let existingProfile = profile {
       profileManager.updateProfile(
@@ -173,3 +165,4 @@ struct ProfileFormView: View {
     onDismiss()
   }
 }
+
