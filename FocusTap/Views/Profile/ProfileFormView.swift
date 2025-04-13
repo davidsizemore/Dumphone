@@ -14,11 +14,11 @@ struct ProfileFormView: View {
   @State private var profileName: String
   @State private var profileIcon: String
   @State private var showSymbolsPicker = false
-  @State private var showAppSelection = false
   @State private var activitySelection: FamilyActivitySelection = .init()
   @State private var showDeleteConfirmation = false
   @State private var requireMatchingTag: Bool
   @State private var requireTagToBlock: Bool
+  @State private var isActivityPickerPresented = false
   let profile: Profile?
   let onDismiss: () -> Void
 
@@ -39,12 +39,12 @@ struct ProfileFormView: View {
   var body: some View {
     NavigationView {
       Form {
-        Section(header: Text("Profile Details")) {
+        Section(header: Text(.profileDetailsSectionHeader)) {
           VStack(alignment: .leading) {
-            Text("Profile Name")
+            Text(.profileNameSubHeader)
               .font(.caption)
               .foregroundColor(.secondary)
-            TextField("Enter profile name", text: $profileName)
+            TextField(.profileNamePlaceholder, text: $profileName)
           }
 
           Button(action: { showSymbolsPicker = true }) {
@@ -53,7 +53,7 @@ struct ProfileFormView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 40, height: 40)
-              Text("Choose Icon")
+              Text(.chooseIconButtonText)
               Spacer()
               Image(systemName: "chevron.right")
                 .foregroundColor(.secondary)
@@ -61,45 +61,46 @@ struct ProfileFormView: View {
           }
         }
 
-        Section(header: Text("App Configuration")) {
-          Button(action: { showAppSelection = true }) {
-            Text("Configure Blocked Apps")
+        Section(header: Text(.appConfigurationSectionHeader)) {
+          Button(action: { isActivityPickerPresented = true }) {
+            Text(.configureBlockedAppsButtonText)
           }
-          .familyActivityPicker(isPresented: $showAppSelection,
-                                selection: $activitySelection)
+          .sheet(isPresented: $isActivityPickerPresented) {
+            FTFamilyActivityPicker(selection: $activitySelection)
+          }
 
           VStack(alignment: .leading, spacing: 8) {
             HStack {
-              Text("Blocked Apps:")
+              Text(.blockedAppsBodyText)
               Spacer()
               Text("\(activitySelection.applicationTokens.count)")
                 .fontWeight(.bold)
             }
             HStack {
-              Text("Blocked Categories:")
+              Text(.blockedCategoriesBodyText)
               Spacer()
               Text("\(activitySelection.categoryTokens.count)")
                 .fontWeight(.bold)
             }
-            Text("Broke can't list the names of the apps due to privacy concerns, it is only able to see the amount of apps selected in the configuration screen.")
+            Text(.appConfigurationDescription)
               .font(.caption)
               .foregroundColor(.secondary)
           }
         }
 
-        Section(header: Text("Security")) {
-          Toggle("Require matching tag to unblock", isOn: $requireMatchingTag)
+        Section(header: Text(.securitySectionHeader)) {
+          Toggle(.requireMatchingTagToggleText, isOn: $requireMatchingTag)
 
           if requireMatchingTag {
-            Text("When enabled, only the tag created for this profile can unblock it")
+            Text(.requireMatchingTagDescription)
               .font(.caption)
               .foregroundColor(.secondary)
           }
 
-          Toggle("Require tag to block", isOn: $requireTagToBlock)
+          Toggle(.requireTagToBlockToggleText, isOn: $requireTagToBlock)
 
           if !requireTagToBlock {
-            Text("When disabled you will be able to block apps without scanning a tag. MAKE SURE YOU SCAN A FOCUS TAG BEFORE USING THIS ACTION OR YOU WILL NOT BE ABLE TO UNBLOCK")
+            Text(.requireTagToBlockDescription)
               .font(.caption)
               .fontWeight(.bold)
               .foregroundColor(.red)
@@ -109,20 +110,20 @@ struct ProfileFormView: View {
         if profile != nil {
           Section {
             Button(action: { showDeleteConfirmation = true }) {
-              Text("Delete Profile")
+              Text(.deleteProfileButtonText)
                 .foregroundColor(.red)
             }
           }
         }
       }
-      .navigationTitle(profile == nil ? "Add Profile" : "Edit Profile")
+      .navigationTitle(profile == nil ? String.profileForm(.addProfilePageHeader) : String.profileForm(.editProfilePageHeader))
       .navigationBarItems(
-        leading: Button("Cancel", action: onDismiss),
-        trailing: Button("Save", action: handleSave)
+        leading: Button(String.common(.cancel), action: onDismiss),
+        trailing: Button(String.common(.save), action: handleSave)
           .disabled(profileName.isEmpty)
       )
       .sheet(isPresented: $showSymbolsPicker) {
-        SymbolsPicker(selection: $profileIcon, title: "Pick an icon", autoDismiss: true)
+        SymbolsPicker(selection: $profileIcon, title: .profileForm(.chooseIconSheetHeader), autoDismiss: true)
       }
       .alert(isPresented: $showDeleteConfirmation) {
         Alert(
@@ -165,4 +166,3 @@ struct ProfileFormView: View {
     onDismiss()
   }
 }
-

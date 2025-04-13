@@ -15,7 +15,7 @@ struct ProfilesPickerView: View {
 
   var body: some View {
     VStack {
-      Text(verbatim: .profiles(.title))
+      Text(.title)
         .font(.headline)
         .padding(.horizontal)
         .padding(.top)
@@ -33,7 +33,7 @@ struct ProfilesPickerView: View {
           }
 
           ProfileCellBase(
-            name: .profiles(.newProfile),
+            name: .profilePicker(.newProfile),
             icon: "plus",
             appsBlocked: nil,
             categoriesBlocked: nil,
@@ -50,7 +50,7 @@ struct ProfilesPickerView: View {
 
       Spacer()
 
-      Text(verbatim: .profiles(.editHint))
+      Text(.editHint)
         .font(.caption2)
         .foregroundColor(.secondary.opacity(0.7))
         .padding(.bottom, 8)
@@ -102,7 +102,7 @@ struct ProfileCellBase: View {
         .lineLimit(1)
 
       if let apps = appsBlocked, let categories = categoriesBlocked {
-        Text(verbatim: String(format: .profiles(.statsFormat), apps, categories))
+        Text(verbatim: String(format: .profilePicker(.statsFormat), apps, categories))
           .font(.system(size: 10))
       }
     }

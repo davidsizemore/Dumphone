@@ -97,7 +97,7 @@ struct HomeView: View {
   // MARK: - UI Components
   private func blockOrUnblockButton(geometry: GeometryProxy) -> some View {
     VStack(spacing: 8) {
-      Text(isBlocking ? "Tap to unblock" : "Tap to block")
+      Text(isBlocking ? HomeStrings.tapToUnblock : HomeStrings.tapToBlock)
         .font(.caption)
         .opacity(0.75)
         .transition(.scale)
@@ -145,22 +145,22 @@ struct HomeView: View {
     switch type {
     case .wrongTag:
       return Alert(
-        title: Text(verbatim: .alerts(.wrongTagTitle)),
-        message: Text(verbatim: .alerts(.wrongTagMessage)),
-        dismissButton: .default(Text(verbatim: .common(.ok)))
+        title: Text(.wrongTag(.title)),
+        message: Text(.wrongTag(.message)),
+        dismissButton: .default(Text(.ok))
       )
     case .notFocusTag:
       return Alert(
-        title: Text(verbatim: .alerts(.notFocusTagTitle)),
-        message: Text(verbatim: .alerts(.notFocusTagMessage)),
-        dismissButton: .default(Text(verbatim: .common(.ok)))
+        title: Text(.notFocusTag(.title)),
+        message: Text(.notFocusTag(.message)),
+        dismissButton: .default(Text(.ok))
       )
     case .createTag:
       return Alert(
-        title: Text(verbatim: .alerts(.createTagTitle)),
-        message: Text(verbatim: .alerts(.createTagMessage)),
-        primaryButton: .default(Text(verbatim: .common(.create))) { createFocusTag() },
-        secondaryButton: .cancel(Text(verbatim: .common(.cancel)))
+        title: Text(.createTag(.title)),
+        message: Text(.createTag(.message)),
+        primaryButton: .default(Text(.create)) { createFocusTag() },
+        secondaryButton: .cancel(Text(.cancel))
       )
     }
   }

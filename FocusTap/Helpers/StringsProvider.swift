@@ -1,155 +1,186 @@
 import Foundation
+import SwiftUI
 
-class StringsProvider {
-  static let shared = StringsProvider()
-
-  private var strings: [String: Any]?
-
-  private init() {
-    loadStrings()
-  }
-
-  private func loadStrings() {
-    guard let url = Bundle.main.url(forResource: "Strings", withExtension: "json"),
-          let data = try? Data(contentsOf: url),
-          let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else {
-      return
-    }
-    strings = json
-  }
-
-  func string(for path: StringPath) -> String {
-    var current: Any? = strings
-    let components = path.rawValue
-
-    // Traverse the path except for the last component
-    for component in components.dropLast() {
-      guard let dict = current as? [String: Any],
-            let next = dict[component] else {
-        return components.last ?? ""
-      }
-      current = next
-    }
-
-    // Handle the final component
-    if let dict = current as? [String: Any],
-       let finalValue = dict[components.last ?? ""] as? String {
-      return finalValue
-    }
-
-    return components.last ?? ""
-  }
+// MARK: - Common Strings
+enum CommonStrings: String {
+  case ok = "OK"
+  case create = "Create"
+  case cancel = "Cancel"
+  case done = "Done"
+  case save = "Save"
 }
 
-// MARK: - String Path Protocol
-protocol StringPath {
-  var rawValue: [String] { get }
+// MARK: - Home Page Strings
+enum HomeStrings: String {
+  case tapToBlock = "Tap to block"
+  case tapToUnblock = "Tap to unblock"
 }
 
-// MARK: - String Path Enums
-enum CommonStrings: StringPath {
-  case ok
-  case create
-  case cancel
+// MARK: - Profile Picker Strings
+enum ProfilePickerStrings: String {
+  case title = "Profiles"
+  case newProfile = "New..."
+  case editHint = "Long press on a profile to edit..."
+  case statsFormat = "A: %d | C: %d"
+}
 
-  var rawValue: [String] {
+// MARK: - Alert Strings
+enum AlertType {
+  case wrongTag(AlertString)
+  case notFocusTag(AlertString)
+  case createTag(AlertString)
+
+  enum AlertString {
+    case title
+    case message
+  }
+
+  var text: String {
+    let alertString = switch self {
+    case .wrongTag(let str), .notFocusTag(let str), .createTag(let str): str
+    }
+    return alertString == .title ? title : message
+  }
+
+  private var title: String {
     switch self {
-    case .ok: return ["common", "ok"]
-    case .create: return ["common", "create"]
-    case .cancel: return ["common", "cancel"]
+    case .wrongTag: return "Wrong Tag Scanned"
+    case .notFocusTag: return "Not a Focus Tag"
+    case .createTag: return "Create Focus Tag"
+    }
+  }
+
+  private var message: String {
+    switch self {
+    case .wrongTag: return "The current profile requires you scan its corresponding tag to unlock it."
+    case .notFocusTag: return "You can create a new Focus tag using the + button. If this tag was previously a Focus tag, try tapping create a new tag and rescanning this one as an update may be required."
+    case .createTag: return "Do you want to create a new Focus tag?"
     }
   }
 }
 
-enum FocusTapStrings: StringPath {
-  case tapToBlock
-  case tapToUnblock
-
-  var rawValue: [String] {
-    switch self {
-    case .tapToBlock: return ["Focus", "tapToBlock"]
-    case .tapToUnblock: return ["Focus", "tapToUnblock"]
-    }
-  }
+// MARK: - Log Strings
+enum LogStrings: String {
+  case matchingTag = "Matching tag, unblocking"
+  case wrongTag = "Wrong Tag for unblocking!\nPayload: %@"
+  case nonBrokeTag = "A Non Broke tag was scanned!\nPayload: %@"
+  case noMatchRequired = "Tag matching not required, unblocking"
+  case switchingProfile = "Switching to profile: %@"
+  case usingCurrentProfile = "No matching profile, using current"
 }
 
-enum ProfileStrings: StringPath {
-  case title
-  case newProfile
-  case editHint
-  case statsFormat
+enum profileFormStrings: String {
+  case addProfilePageHeader = "Add Profile"
+  case editProfilePageHeader = "Edit Profile"
 
-  var rawValue: [String] {
-    switch self {
-    case .title: return ["profiles", "title"]
-    case .newProfile: return ["profiles", "newProfile"]
-    case .editHint: return ["profiles", "editHint"]
-    case .statsFormat: return ["profiles", "statsFormat"]
-    }
-  }
-}
+  case profileDetailsSectionHeader = "Profile Details"
+  case profileNameSubHeader = "Profile Name"
+  case profileNamePlaceholder = "Enter profile name"
+  case chooseIconButtonText = "Choose Icon"
+  case chooseIconSheetHeader = "Pick an icon"
 
-enum AlertStrings: StringPath {
-  case wrongTagTitle
-  case wrongTagMessage
-  case notFocusTagTitle
-  case notFocusTagMessage
-  case createTagTitle
-  case createTagMessage
-  case tagCreationTitle
+  case appConfigurationSectionHeader = "App Configuration"
+  case configureBlockedAppsButtonText = "Configure Blocked Apps"
+  case blockedAppsBodyText = "Blocked Apps:"
+  case blockedCategoriesBodyText = "Blocked Categories:"
+  case appConfigurationDescription = "Broke can't list the names of the apps due to privacy concerns, it is only able to see the amount of apps selected in the configuration screen."
 
-  var rawValue: [String] {
-    switch self {
-    case .wrongTagTitle: return ["alerts", "wrongTag", "title"]
-    case .wrongTagMessage: return ["alerts", "wrongTag", "message"]
-    case .notFocusTagTitle: return ["alerts", "notFocusTag", "title"]
-    case .notFocusTagMessage: return ["alerts", "notFocusTag", "message"]
-    case .createTagTitle: return ["alerts", "createTag", "title"]
-    case .createTagMessage: return ["alerts", "createTag", "message"]
-    case .tagCreationTitle: return ["alerts", "tagCreation", "title"]
-    }
-  }
-}
+  case securitySectionHeader = "Security"
+  case requireMatchingTagToggleText = "Require matching tag to unblock"
+  case requireMatchingTagDescription = "When enabled, only the tag created for this profile can unblock it"
+  case requireTagToBlockToggleText = "Require tag to block"
+  case requireTagToBlockDescription = "When disabled you will be able to block apps without scanning a tag. MAKE SURE YOU SCAN A FOCUS TAG BEFORE USING THIS ACTION OR YOU WILL NOT BE ABLE TO UNBLOCK"
 
-enum LogStrings: StringPath {
-  case matchingTag
-  case wrongTag
-  case nonBrokeTag
-  case noMatchRequired
-  case switchingProfile
-  case usingCurrentProfile
+  case deleteProfileButtonText = "Delete Profile"
 
-  var rawValue: [String] {
-    switch self {
-    case .matchingTag: return ["logs", "matchingTag"]
-    case .wrongTag: return ["logs", "wrongTag"]
-    case .nonBrokeTag: return ["logs", "nonBrokeTag"]
-    case .noMatchRequired: return ["logs", "noMatchRequired"]
-    case .switchingProfile: return ["logs", "switchingProfile"]
-    case .usingCurrentProfile: return ["logs", "usingCurrentProfile"]
-    }
-  }
+  case selectAppsToBlockTitle = "Select Apps to Block"
+  case selectAppsToBlockDesctiption = "Choose which apps and app categories you want to block when this profile is active."
 }
 
 // MARK: - String Extensions
 extension String {
-  static func common(_ path: CommonStrings) -> String {
-    StringsProvider.shared.string(for: path)
+  static func common(_ strings: CommonStrings) -> String { strings.rawValue }
+
+  static func home(_ strings: HomeStrings) -> String { strings.rawValue }
+
+  static func profilePicker(_ strings: ProfilePickerStrings) -> String { strings.rawValue }
+
+  static func alerts(_ strings: AlertType) -> String { strings.text }
+
+  static func logs(_ strings: LogStrings) -> String { strings.rawValue }
+
+  static func profileForm(_ strings: profileFormStrings) -> String { strings.rawValue }
+}
+
+// MARK: - Text Extension
+extension Text {
+  init(_ strings: CommonStrings) {
+    self.init(strings.rawValue)
   }
 
-  static func Focus(_ path: FocusTapStrings) -> String {
-    StringsProvider.shared.string(for: path)
+  init(_ strings: HomeStrings) {
+    self.init(strings.rawValue)
   }
 
-  static func profiles(_ path: ProfileStrings) -> String {
-    StringsProvider.shared.string(for: path)
+  init(_ strings: ProfilePickerStrings) {
+    self.init(strings.rawValue)
   }
 
-  static func alerts(_ path: AlertStrings) -> String {
-    StringsProvider.shared.string(for: path)
+  init(_ strings: AlertType) {
+    self.init(strings.text)
   }
 
-  static func logs(_ path: LogStrings) -> String {
-    StringsProvider.shared.string(for: path)
+  init(_ strings: LogStrings) {
+    self.init(strings.rawValue)
+  }
+
+  init(_ strings: profileFormStrings) {
+    self.init(strings.rawValue)
+  }
+}
+
+// MARK: - TextField Extension
+extension TextField where Label == Text {
+  init(_ strings: CommonStrings, text: Binding<String>) {
+    self.init(strings.rawValue, text: text)
+  }
+
+  init(_ strings: HomeStrings, text: Binding<String>) {
+    self.init(strings.rawValue, text: text)
+  }
+
+  init(_ strings: ProfilePickerStrings, text: Binding<String>) {
+    self.init(strings.rawValue, text: text)
+  }
+
+  init(_ strings: LogStrings, text: Binding<String>) {
+    self.init(strings.rawValue, text: text)
+  }
+
+  init(_ strings: profileFormStrings, text: Binding<String>) {
+    self.init(strings.rawValue, text: text)
+  }
+}
+
+// MARK: - Toggle Extension
+extension Toggle where Label == Text {
+  init(_ strings: CommonStrings, isOn: Binding<Bool>) {
+    self.init(strings.rawValue, isOn: isOn)
+  }
+
+  init(_ strings: HomeStrings, isOn: Binding<Bool>) {
+    self.init(strings.rawValue, isOn: isOn)
+  }
+
+  init(_ strings: ProfilePickerStrings, isOn: Binding<Bool>) {
+    self.init(strings.rawValue, isOn: isOn)
+  }
+
+  init(_ strings: LogStrings, isOn: Binding<Bool>) {
+    self.init(strings.rawValue, isOn: isOn)
+  }
+
+  init(_ strings: profileFormStrings, isOn: Binding<Bool>) {
+    self.init(strings.rawValue, isOn: isOn)
   }
 }
