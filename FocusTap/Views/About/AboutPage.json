@@ -11,46 +11,46 @@
   },
   "sections": [
     {
-    "title": "Project Links",
-    "links": [
-      {
-      "url": "https://github.com/Walker123t/FocusTap",
-      "text": "View project on Github",
-      "primaryImage": "github-logo",
-      "primaryImageType": "asset",
-      "secondaryImage": "arrow.up.right.square",
-      "secondaryImageType": "system"
-      },
-      {
-      "url": "https://github.com/OzTamir/broke",
-      "text": "View original project's Github",
-      "primaryImage": "github-logo",
-      "primaryImageType": "asset",
-      "secondaryImage": "arrow.up.right.square",
-      "secondaryImageType": "system"
-      }
-    ]
+      "title": "Project Links",
+      "links": [
+        {
+          "url": "https://github.com/Walker123t/FocusTap",
+          "text": "View project on Github",
+          "primaryImage": "github-logo",
+          "primaryImageType": "asset",
+          "secondaryImage": "arrow.up.right.square",
+          "secondaryImageType": "system"
+        },
+        {
+          "url": "https://github.com/OzTamir/broke",
+          "text": "View original project's Github",
+          "primaryImage": "github-logo",
+          "primaryImageType": "asset",
+          "secondaryImage": "arrow.up.right.square",
+          "secondaryImageType": "system"
+        }
+      ]
     },
     {
-    "title": "Tell Me What You Think",
-    "links": [
-      {
-      "url": "mailto:FocusTapSupport@proton.me?subject=FocusTap%20Bug%20Report",
-      "text": "Report a Bug",
-      "primaryImage": "ant.circle",
-      "primaryImageType": "system",
-      "secondaryImage": "envelope",
-      "secondaryImageType": "system"
-      },
-      {
-      "url": "mailto:FocusTapSupport@proton.me?subject=FocusTap%20Feedback",
-      "text": "Feedback",
-      "primaryImage": "text.bubble",
-      "primaryImageType": "system",
-      "secondaryImage": "envelope",
-      "secondaryImageType": "system"
-      }
-    ]
+      "title": "Tell Me What You Think",
+      "links": [
+        {
+          "url": "mailto:FocusTapSupport@proton.me?subject=FocusTap%20Bug%20Report",
+          "text": "Report a Bug",
+          "primaryImage": "ant.circle",
+          "primaryImageType": "system",
+          "secondaryImage": "envelope",
+          "secondaryImageType": "system"
+        },
+        {
+          "url": "mailto:FocusTapSupport@proton.me?subject=FocusTap%20Feedback",
+          "text": "Feedback",
+          "primaryImage": "text.bubble",
+          "primaryImageType": "system",
+          "secondaryImage": "envelope",
+          "secondaryImageType": "system"
+        }
+      ]
     }
   ],
   "supportSection": {

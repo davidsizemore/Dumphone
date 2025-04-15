@@ -46,6 +46,12 @@ struct ImageWithType: View {
 struct AboutView: View {
   let pageData: AboutPage? = AboutPage.load()
 
+  var appVersion: String {
+    let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown"
+    let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "Unknown"
+    return "Focus Tap - \(version) (\(build))"
+  }
+
   var body: some View {
     if let data = pageData {
       List {
@@ -93,6 +99,13 @@ struct AboutView: View {
           }
           .listRowBackground(Color(hex: data.supportSection.link.backgroundColor))
         }
+
+        Section {
+          Text(appVersion)
+            .foregroundStyle(.secondary)
+            .frame(maxWidth: .infinity, alignment: .center)
+        }
+        .listRowBackground(Color(data.backgroundStyle.mainBackground))
       }
       .background(Color(data.backgroundStyle.mainBackground))
       .scrollContentBackground(.hidden)
