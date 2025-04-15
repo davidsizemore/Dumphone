@@ -32,8 +32,15 @@ struct ProfileFormView: View {
     _requireMatchingTag = State(initialValue: profile?.requireMatchingTag ?? false)
     _requireTagToBlock = State(initialValue: profile?.requireTagToBlock ?? true)
 
-    activitySelection.applicationTokens = profile?.appTokens ?? []
-    activitySelection.categoryTokens = profile?.categoryTokens ?? []
+    if let profile = profile {
+      var tempSelection = FamilyActivitySelection()
+      tempSelection.applicationTokens = profile.appTokens
+      tempSelection.categoryTokens = profile.categoryTokens
+
+      _activitySelection = State(initialValue: tempSelection)
+    } else {
+      _activitySelection = State(initialValue: .init())
+    }
   }
 
   var body: some View {
