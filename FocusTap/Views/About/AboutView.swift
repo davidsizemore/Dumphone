@@ -48,8 +48,7 @@ struct AboutView: View {
 
   var appVersion: String {
     let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown"
-    let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "Unknown"
-    return "Focus Tap - \(version) (\(build))"
+    return "Focus Tap - \(version)"
   }
 
   var body: some View {
