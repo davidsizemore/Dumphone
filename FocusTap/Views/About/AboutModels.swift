@@ -3,9 +3,9 @@ import Foundation
 struct AboutPage: Codable {
   let navigationTitle: String
   let backgroundStyle: BackgroundStyle
-  let aboutSection: AboutSectionHeader
-  let sections: [AboutSectionData]
-  let supportSection: SupportSection
+  let aboutHeader: SectionHeader
+  let sections: [SectionData]
+  let supportSection: SupportSection?
 }
 
 struct BackgroundStyle: Codable {
@@ -14,12 +14,12 @@ struct BackgroundStyle: Codable {
   let listRowBackgroundOpacity: Double
 }
 
-struct AboutSectionHeader: Codable {
+struct SectionHeader: Codable {
   let title: String
   let text: String
 }
 
-struct AboutSectionData: Codable {
+struct SectionData: Codable {
   let title: String
   let links: [LinkData]
 }

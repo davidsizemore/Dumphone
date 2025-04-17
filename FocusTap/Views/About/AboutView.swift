@@ -54,57 +54,19 @@ struct AboutView: View {
   var body: some View {
     if let data = pageData {
       List {
-        Section {
-          Text(data.aboutSection.text)
-            .padding(.vertical, 4)
-        } header: {
-          Text(data.aboutSection.title)
-            .font(.headline)
-        }
-        .listRowBackground(Color.secondary.opacity(data.backgroundStyle.listRowBackgroundOpacity))
+        // About Header
+        aboutHeader(data.aboutHeader)
+          .listRowBackground(Color.secondary.opacity(data.backgroundStyle.listRowBackgroundOpacity))
 
-        ForEach(data.sections, id: \.title) { section in
-          Section(section.title) {
-            ForEach(section.links, id: \.url) { link in
-              Link(destination: URL(string: link.url)!) {
-                HStack {
-                  ImageWithType(
-                    imageName: link.primaryImage,
-                    imageType: link.primaryImageType,
-                    size: CGSize(width: 40, height: 40)
-                  )
+        // Link Sections
+        linkList(from: data.sections,
+                 backgroundColor: Color.secondary.opacity(data.backgroundStyle.listRowBackgroundOpacity))
 
-                  Text(link.text)
-                  Spacer()
+        // Support Section
+        if let data = data.supportSection { supportSection(data) }
 
-                  ImageWithType(
-                    imageName: link.secondaryImage,
-                    imageType: link.secondaryImageType
-                  )
-                }
-              }
-              .listRowBackground(Color.secondary.opacity(data.backgroundStyle.listRowBackgroundOpacity))
-              .foregroundStyle(.primary)
-            }
-          }
-        }
-
-        Section(data.supportSection.title) {
-          Link(destination: URL(string: data.supportSection.link.url)!) {
-            Image(data.supportSection.link.image)
-              .resizable()
-              .aspectRatio(contentMode: .fit)
-              .frame(height: CGFloat(data.supportSection.link.imageHeight))
-          }
-          .listRowBackground(Color(hex: data.supportSection.link.backgroundColor))
-        }
-
-        Section {
-          Text(appVersion)
-            .foregroundStyle(.secondary)
-            .frame(maxWidth: .infinity, alignment: .center)
-        }
-        .listRowBackground(Color(data.backgroundStyle.mainBackground))
+        // App Version
+        appVersionSection(backgroundColor: Color(data.backgroundStyle.mainBackground))
       }
       .background(Color(data.backgroundStyle.mainBackground))
       .scrollContentBackground(.hidden)
@@ -113,6 +75,69 @@ struct AboutView: View {
       Text("Failed to load about page data")
         .foregroundColor(.red)
     }
+  }
+
+  private func aboutHeader(_ data: SectionHeader) -> some View {
+    Section {
+      Text(data.text)
+        .padding(.vertical, 4)
+    } header: {
+      Text(data.title)
+        .font(.headline)
+    }
+  }
+
+  private func linkList(from data: [SectionData], backgroundColor: Color) -> some View {
+    ForEach(data, id: \.title) { section in
+      Section(section.title) {
+        ForEach(section.links, id: \.url) { link in
+          aboutLink(link)
+            .listRowBackground(backgroundColor)
+            .foregroundStyle(.primary)
+        }
+      }
+    }
+  }
+
+  private func aboutLink(_ link: LinkData) -> some View {
+    Link(destination: URL(string: link.url)!) {
+      HStack {
+        ImageWithType(
+          imageName: link.primaryImage,
+          imageType: link.primaryImageType,
+          size: CGSize(width: 40, height: 40)
+        )
+
+        Text(link.text)
+        Spacer()
+
+        ImageWithType(
+          imageName: link.secondaryImage,
+          imageType: link.secondaryImageType
+        )
+      }
+    }
+  }
+
+  private func supportSection(_ data: SupportSection) -> some View {
+    Section(data.title) {
+      Link(destination: URL(string: data.link.url)!) {
+        Image(data.link.image)
+          .resizable()
+          .aspectRatio(contentMode: .fit)
+          .frame(height: CGFloat(data.link.imageHeight))
+      }
+      .listRowBackground(Color(hex: data.link.backgroundColor))
+    }
+  }
+
+  private func appVersionSection(backgroundColor: Color) -> some View {
+    Section {
+      Text(appVersion)
+        .foregroundStyle(.secondary)
+        .frame(maxWidth: .infinity, alignment: .center)
+    }
+    .listRowBackground(backgroundColor)
   }
 }
 

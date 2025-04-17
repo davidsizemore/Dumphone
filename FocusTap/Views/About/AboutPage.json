@@ -5,7 +5,7 @@
     "listRowBackground": "secondary",
     "listRowBackgroundOpacity": 0.2
   },
-  "aboutSection": {
+  "aboutHeader": {
     "title": "About Focus Tap",
     "text": "FocusTap helps you stay focused by using NFC tags block apps that distract you"
   },
@@ -52,14 +52,5 @@
         }
       ]
     }
-  ],
-  "supportSection": {
-    "title": "Support future development!",
-    "link": {
-      "url": "https://buymeacoffee.com/walker123t",
-      "image": "buy-me-a-coffee",
-      "backgroundColor": "#FFDD00",
-      "imageHeight": 40
-    }
-  }
+  ]
 }
