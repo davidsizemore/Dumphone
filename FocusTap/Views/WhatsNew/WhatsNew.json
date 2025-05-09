@@ -1,0 +1,15 @@
+[
+  {
+    "title": "New “What’s New” Screen",
+    "description": "I’ve added a simple, dedicated screen to highlight new features and changes in each version of the app. You can access it from the About page, and it will also appear after each app update."
+  },
+  {
+    "title": "App Intent Roll Back",
+    "description": "I’ve come to realize that App Intents are not yet fully ready for release and still require significant work. They will be available in their complete form in a future update."
+  },
+  {
+    "title": "Idea Submission Button",
+    "description": "A new Idea button has been added to the About page, allowing you to easily submit your ideas and suggestions for app improvements."
+  }
+]
+

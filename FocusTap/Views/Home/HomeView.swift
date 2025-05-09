@@ -20,6 +20,8 @@ struct HomeView: View {
   @StateObject private var nfcReader = NFCReader()
   @State private var alertType: AlertType?
   @State private var showAboutPage: Bool = false
+  @State private var showWhatsNewPage: Bool = false
+
 
   // MARK: - Alert Type
   private enum AlertType: Identifiable {
@@ -37,11 +39,7 @@ struct HomeView: View {
   }
 
   // MARK: - Computed Properties
-  private var isBlocking: Bool {
-    get {
-      return appBlocker.isBlocking
-    }
-  }
+  private var isBlocking: Bool { appBlocker.isBlocking }
 
   // MARK: - View Body
   var body: some View {
@@ -71,9 +69,8 @@ struct HomeView: View {
         handleBlockingTag(payload: url.absoluteString, currentProfile: profileManager.currentProfile)
       }
     }
-    .sheet(isPresented: $showAboutPage) {
-      AboutView()
-    }
+    .sheet(isPresented: $showAboutPage) { AboutView() }
+    .sheet(isPresented: $showWhatsNewPage) { WhatsNewView() }
   }
 
   // MARK: - Main Layout Views
@@ -84,6 +81,17 @@ struct HomeView: View {
         profilesList(geometry: geometry)
       }
       .background(backgroundColor)
+    }
+    .onAppear {
+      let currentAppVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown"
+      let previousAppVersion = UserDefaults.standard.string(forKey: "appVersion") ?? "NAN"
+
+      if currentAppVersion != previousAppVersion {
+        UserDefaults.standard.set(currentAppVersion, forKey: "appVersion")
+        showWhatsNewPage = true
+      } else {
+        showWhatsNewPage = false
+      }
     }
   }
 

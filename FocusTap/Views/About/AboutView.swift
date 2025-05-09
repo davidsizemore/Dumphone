@@ -7,49 +7,10 @@
 
 import SwiftUI
 
-struct ImageWithType: View {
-  let imageName: String
-  let imageType: ImageType
-  let size: CGSize?
-
-  init(imageName: String, imageType: ImageType, size: CGSize? = nil) {
-    self.imageName = imageName
-    self.imageType = imageType
-    self.size = size
-  }
-
-  var body: some View {
-    if let size = size {
-      switch imageType {
-      case .system:
-        Image(systemName: imageName)
-          .resizable()
-          .aspectRatio(contentMode: .fit)
-          .frame(width: size.width, height: size.height)
-      case .asset:
-        Image(imageName)
-          .resizable()
-          .aspectRatio(contentMode: .fit)
-          .frame(width: size.width, height: size.height)
-      }
-    } else {
-      switch imageType {
-      case .system:
-        Image(systemName: imageName)
-      case .asset:
-        Image(imageName)
-      }
-    }
-  }
-}
-
 struct AboutView: View {
   let pageData: AboutPage? = AboutPage.load()
 
-  var appVersion: String {
-    let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown"
-    return "Focus Tap - \(version)"
-  }
+  @State private var showWhatsNew: Bool = false
 
   var body: some View {
     if let data = pageData {
@@ -58,15 +19,68 @@ struct AboutView: View {
         aboutHeader(data.aboutHeader)
           .listRowBackground(Color.secondary.opacity(data.backgroundStyle.listRowBackgroundOpacity))
 
-        // Link Sections
-        linkList(from: data.sections,
-                 backgroundColor: Color.secondary.opacity(data.backgroundStyle.listRowBackgroundOpacity))
+        Section("What's New") {
+          Button {
+            showWhatsNew = true
+          } label: {
+            HStack {
+              ImageWithType(
+                imageName: "sparkles",
+                imageType: .system,
+                size: CGSize(width: 30, height: 30)
+              )
+              Text("See What's New")
+
+              Spacer()
+
+              ImageWithType(
+                imageName: "arrow.right",
+                imageType: .system,
+                size: CGSize(width: 13, height: 13)
+              )
+            }
+            .padding(.vertical, 4)
+          }
+          .listRowBackground(Color.secondary.opacity(data.backgroundStyle.listRowBackgroundOpacity))
+          .foregroundStyle(.primary)
+          .popover(isPresented: $showWhatsNew) {
+            WhatsNewView()
+          }
+        }
+
+        ForEach(data.sections, id: \.title) { section in
+          Section(section.title) {
+            ForEach(section.links, id: \.url) { link in
+              Link(destination: URL(string: link.url)!) {
+                HStack {
+                  ImageWithType(
+                    imageName: link.primaryImage,
+                    imageType: link.primaryImageType,
+                    size: CGSize(width: 30, height: 30)
+                  )
+                  Text(link.text)
+                    .padding(.leading, 10)
+
+                  Spacer()
 
         // Support Section
         if let data = data.supportSection { supportSection(data) }
+                  ImageWithType(
+                    imageName: link.secondaryImage,
+                    imageType: link.secondaryImageType
+                  )
+                }
+              }
+              .listRowBackground(Color.secondary.opacity(data.backgroundStyle.listRowBackgroundOpacity))
+              .foregroundStyle(.primary)
+            }
+          }
+        }
 
-        // App Version
-        appVersionSection(backgroundColor: Color(data.backgroundStyle.mainBackground))
+        Section {
+          AppVersionText()
+        }
+        .listRowBackground(Color(data.backgroundStyle.mainBackground))
       }
       .background(Color(data.backgroundStyle.mainBackground))
       .scrollContentBackground(.hidden)
@@ -129,15 +143,6 @@ struct AboutView: View {
       }
       .listRowBackground(Color(hex: data.link.backgroundColor))
     }
-  }
-
-  private func appVersionSection(backgroundColor: Color) -> some View {
-    Section {
-      Text(appVersion)
-        .foregroundStyle(.secondary)
-        .frame(maxWidth: .infinity, alignment: .center)
-    }
-    .listRowBackground(backgroundColor)
   }
 }
 

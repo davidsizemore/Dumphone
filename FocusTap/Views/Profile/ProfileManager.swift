@@ -10,6 +10,8 @@ import FamilyControls
 import ManagedSettings
 
 class ProfileManager: ObservableObject {
+  static var shared: ProfileManager = .init()
+
   @Published var profiles: [Profile] = []
   @Published var currentProfileId: UUID?
 

@@ -48,6 +48,14 @@
           "primaryImage": "text.bubble",
           "primaryImageType": "system",
           "secondaryImage": "envelope",
+          "secondaryImageType": "system",
+        },
+        {
+          "url": "mailto:FocusTapSupport@proton.me?subject=FocusTap%20Idea",
+          "text": "Idea",
+          "primaryImage": "lightbulb.min.badge.exclamationmark.fill",
+          "primaryImageType": "system",
+          "secondaryImage": "envelope",
           "secondaryImageType": "system"
         }
       ]
