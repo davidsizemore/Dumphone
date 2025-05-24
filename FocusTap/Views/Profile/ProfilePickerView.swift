@@ -2,7 +2,7 @@
 //  ProfilePicker.swift
 //  Broke
 //
-//  Created by Oz Tamir on 23/08/2024.
+//  Created by Oz Tamir on 23/08/2024. Updated UI by David Sizemore 23/05/2025.
 //
 
 import SwiftUI
@@ -14,49 +14,33 @@ struct ProfilesPickerView: View {
   @State private var editingProfile: Profile?
 
   var body: some View {
-    VStack {
-      Text(.title)
-        .font(.headline)
-        .padding(.horizontal)
-        .padding(.top)
-
-      ScrollView {
-        LazyVGrid(columns: [GridItem(.adaptive(minimum: 90), spacing: 10)], spacing: 10) {
-          ForEach(profileManager.profiles) { profile in
-            ProfileCell(profile: profile, isSelected: profile.id == profileManager.currentProfileId)
-              .onTapGesture {
-                profileManager.setCurrentProfile(id: profile.id)
-              }
-              .onLongPressGesture {
-                editingProfile = profile
-              }
-          }
-
-          ProfileCellBase(
-            name: .profilePicker(.newProfile),
-            icon: "plus",
-            appsBlocked: nil,
-            categoriesBlocked: nil,
-            isSelected: false,
-            isDashed: true,
-            hasDivider: false
-          )
+    LazyVGrid(columns: [GridItem(.adaptive(minimum: 90), spacing: 10)], spacing: 10) {
+      ForEach(profileManager.profiles) { profile in
+        ProfileCell(profile: profile, isSelected: profile.id == profileManager.currentProfileId)
           .onTapGesture {
-            showAddProfileView = true
+            profileManager.setCurrentProfile(id: profile.id)
           }
-        }
-        .padding(.horizontal, 10)
+          .onLongPressGesture {
+            editingProfile = profile
+          }
       }
 
-      Spacer()
-
-      Text(.editHint)
-        .font(.caption2)
-        .foregroundColor(.secondary.opacity(0.7))
-        .padding(.bottom, 8)
+      ProfileCellBase(
+        name: .profilePicker(.newProfile),
+        icon: "plus",
+        appsBlocked: nil,
+        categoriesBlocked: nil,
+        isSelected: false,
+        isDashed: true,
+        hasDivider: false
+      )
+      .onTapGesture {
+        showAddProfileView = true
+      }
     }
+    .padding(.horizontal, 10)
     .background(
-      Color("ProfileSectionBackground")
+      Color.clear
         .clipShape(
           .rect(
             topLeadingRadius: 20,
@@ -93,27 +77,17 @@ struct ProfileCellBase: View {
         .resizable()
         .aspectRatio(contentMode: .fit)
         .frame(width: 30, height: 30)
-      if hasDivider {
-        Divider().padding(2)
-      }
-      Text(verbatim: name)
-        .font(.caption)
-        .fontWeight(.medium)
-        .lineLimit(1)
-
-      if let apps = appsBlocked, let categories = categoriesBlocked {
-        Text(verbatim: String(format: .profilePicker(.statsFormat), apps, categories))
-          .font(.system(size: 10))
-      }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .padding()
     }
     .frame(width: 90, height: 90)
     .padding(2)
-    .background(isSelected ? Color.blue.opacity(0.3) : Color.secondary.opacity(0.2))
+    .background(isSelected ? Color(red: 0.11, green: 0.80, blue: 0.51, opacity: 0.3) : Color.secondary.opacity(0.2))
     .cornerRadius(8)
     .overlay(
       RoundedRectangle(cornerRadius: 8)
         .stroke(
-          isSelected ? Color.blue : (isDashed ? Color.secondary : Color.clear),
+          isSelected ? Color(red: 0.11, green: 0.80, blue: 0.51) : (isDashed ? Color.secondary : Color.clear),
           style: StrokeStyle(lineWidth: 2, dash: isDashed ? [5] : [])
         )
     )
@@ -122,7 +96,7 @@ struct ProfileCellBase: View {
   private var borderOverlay: some View {
     RoundedRectangle(cornerRadius: 8)
       .stroke(
-        isSelected ? Color.blue : (isDashed ? Color.secondary : Color.clear),
+        isSelected ? Color.green : (isDashed ? Color.secondary : Color.clear),
         style: StrokeStyle(lineWidth: 2, dash: isDashed ? [5] : [])
       )
   }
@@ -142,4 +116,9 @@ struct ProfileCell: View {
     )
     .padding(.top, 3)
   }
+}
+
+#Preview {
+    ProfilesPickerView(profileManager: ProfileManager.shared)
+        .preferredColorScheme(.dark)
 }

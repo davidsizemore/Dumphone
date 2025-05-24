@@ -14,80 +14,59 @@ struct AboutView: View {
 
   var body: some View {
     if let data = pageData {
-      List {
-        // About Header
-        aboutHeader(data.aboutHeader)
-          .listRowBackground(Color.secondary.opacity(data.backgroundStyle.listRowBackgroundOpacity))
+      VStack(spacing: 0) {
+        // Add padding at the top of the viewport
+        Spacer().frame(height: 32)
+        List {
+          // About Header
+          aboutHeader(data.aboutHeader)
+            .listRowBackground(Color.black)
 
-        Section("What's New") {
-          Button {
-            showWhatsNew = true
-          } label: {
-            HStack {
-              ImageWithType(
-                imageName: "sparkles",
-                imageType: .system,
-                size: CGSize(width: 30, height: 30)
-              )
-              Text("See What's New")
+          ForEach(data.sections, id: \.title) { section in
+            Section(header: Text(section.title)
+              .font(.system(size: 20, design: .monospaced))
+              .foregroundColor(.white)) {
+              ForEach(section.links, id: \.url) { link in
+                Link(destination: URL(string: link.url)!) {
+                  HStack {
+                    ImageWithType(
+                      imageName: link.primaryImage,
+                      imageType: link.primaryImageType,
+                      size: CGSize(width: 30, height: 30)
+                    )
+                    Text(link.text)
+                      .padding(.leading, 10)
+                      .font(.system(.body, design: .monospaced))
+                      .foregroundColor(.white)
 
-              Spacer()
+                    Spacer()
 
-              ImageWithType(
-                imageName: "arrow.right",
-                imageType: .system,
-                size: CGSize(width: 13, height: 13)
-              )
-            }
-            .padding(.vertical, 4)
-          }
-          .listRowBackground(Color.secondary.opacity(data.backgroundStyle.listRowBackgroundOpacity))
-          .foregroundStyle(.primary)
-          .popover(isPresented: $showWhatsNew) {
-            WhatsNewView()
-          }
-        }
-
-        ForEach(data.sections, id: \.title) { section in
-          Section(section.title) {
-            ForEach(section.links, id: \.url) { link in
-              Link(destination: URL(string: link.url)!) {
-                HStack {
-                  ImageWithType(
-                    imageName: link.primaryImage,
-                    imageType: link.primaryImageType,
-                    size: CGSize(width: 30, height: 30)
-                  )
-                  Text(link.text)
-                    .padding(.leading, 10)
-
-                  Spacer()
-
-        // Support Section
-        if let data = data.supportSection { supportSection(data) }
-                  ImageWithType(
-                    imageName: link.secondaryImage,
-                    imageType: link.secondaryImageType
-                  )
+          // Support Section
+          if let data = data.supportSection { supportSection(data) }
+                    ImageWithType(
+                      imageName: link.secondaryImage,
+                      imageType: link.secondaryImageType
+                    )
+                  }
                 }
+                .listRowBackground(Color.black)
+                .foregroundStyle(.primary)
               }
-              .listRowBackground(Color.secondary.opacity(data.backgroundStyle.listRowBackgroundOpacity))
-              .foregroundStyle(.primary)
             }
           }
         }
-
-        Section {
-          AppVersionText()
-        }
-        .listRowBackground(Color(data.backgroundStyle.mainBackground))
+        .background(Color.black)
+        .scrollContentBackground(.hidden)
+        .navigationTitle(data.navigationTitle)
+        Spacer(minLength: 0)
+        AppVersionText()
+          .padding(.bottom, 16)
       }
-      .background(Color(data.backgroundStyle.mainBackground))
-      .scrollContentBackground(.hidden)
-      .navigationTitle(data.navigationTitle)
+      .background(Color.black)
     } else {
       Text("Failed to load about page data")
         .foregroundColor(.red)
+        .font(.system(.body, design: .monospaced))
     }
   }
 
@@ -95,9 +74,12 @@ struct AboutView: View {
     Section {
       Text(data.text)
         .padding(.vertical, 4)
+        .font(.system(.body, design: .monospaced))
+        .foregroundColor(.white)
     } header: {
       Text(data.title)
-        .font(.headline)
+        .font(.system(size: 20, design: .monospaced))
+        .foregroundColor(.white)
     }
   }
 
@@ -123,6 +105,8 @@ struct AboutView: View {
         )
 
         Text(link.text)
+          .font(.system(.body, design: .monospaced))
+          .foregroundColor(.white)
         Spacer()
 
         ImageWithType(
@@ -146,10 +130,9 @@ struct AboutView: View {
   }
 }
 
-struct ContentView_Previews: PreviewProvider {
-  static var previews: some View {
-    ForEach(ColorScheme.allCases, id: \.self) {
-      AboutView().preferredColorScheme($0)
+#Preview {
+    NavigationView {
+        AboutView()
     }
-  }
+    .preferredColorScheme(.dark)
 }

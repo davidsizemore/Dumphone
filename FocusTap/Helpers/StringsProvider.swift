@@ -19,7 +19,7 @@ enum HomeStrings: String {
 // MARK: - Profile Picker Strings
 enum ProfilePickerStrings: String {
   case title = "Profiles"
-  case newProfile = "New..."
+  case newProfile = "New"
   case editHint = "Long press on a profile to edit..."
   case statsFormat = "A: %d | C: %d"
 }

@@ -2,7 +2,7 @@
 //  ImageWithType.swift
 //  FocusTap
 //
-//  Created by Trevor Walker on 5/6/25.
+//  Created by Trevor Walker on 5/6/25. Edited by David Sizemore on 5/24/25.
 //
 
 import SwiftUI
@@ -26,18 +26,22 @@ struct ImageWithType: View {
           .resizable()
           .aspectRatio(contentMode: .fit)
           .frame(width: size.width, height: size.height)
+          .foregroundColor(.white)
       case .asset:
         Image(imageName)
           .resizable()
           .aspectRatio(contentMode: .fit)
           .frame(width: size.width, height: size.height)
+          .foregroundColor(.white)
       }
     } else {
       switch imageType {
       case .system:
         Image(systemName: imageName)
+          .foregroundColor(.white)
       case .asset:
         Image(imageName)
+          .foregroundColor(.white)
       }
     }
   }
