@@ -28,7 +28,7 @@ To use Dumphone, follow these steps:
 * Clone or fork the repository.
 * Open the project in Xcode.
 * Build and run the app on your iOS device.
-* Create one or more Dumphone tags
+* Create one or more Dumphone tags.
 
 ## Creating a Dumphone tag
 To create a tag, you'll need a physical NFC tag compatible with iOS. Use the Dumphone app interface to turn the NFC tag into a Dumphone tag - it will write a simple phrase that can be detected by the app to turn your block profiles on and off.
