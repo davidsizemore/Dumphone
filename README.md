@@ -1,44 +1,36 @@
 <div align="center">
-  <a href="https://github.com/OzTamir/broke">
+  <a href="https://github.com/davidsizemore/Dumphone">
     <img src="Icon.png" alt="Logo" style="height:100px; width:100px">
   </a>
 
-  <h3 align="center">Broke</h3>
+  <h3 align="center">Dumphone</h3>
 
   <p align="center">
-    Open Source iOS App for Minimalist Smartphone Use
-    <br />
-    <br />
-    <a href="https://github.com/OzTamir/broke/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/OzTamir/broke/issues">Request Feature</a>
+    Open source iOS app for dumping smartphone features. Turn your smartphone into a Dumphone.
   </p>
 </div>
-Welcome to Broke, an open-source alternative to Brick that lets you experience minimalist smartphone use.
-Inspired by Brick's mission to help users reduce distractions, Broke offers a streamlined approach to limiting your smartphone's functionality.
+
+Welcome to Dumphone, a fork of [Broke](https://github.com/OzTamir/broke) and [Focus Tap](https://github.com/Walker123t/FocusTap), an open-source alternative to Brick that lets you temporarily dump smartphone features using NFC tags.
 
 ### Acknowledgments
-While Broke is a fully functional app, if you find value in this concept and want a polished experience, consider supporting the original creators by purchasing Brick [here](https://getbrick.app/shop).
+Dumphone is an app for tinkerers. If you're interested in additional features and a fully supported experience,  consider purchasing a [Brick](https://getbrick.app/shop).
 
-Out of respect to the original team, Broke is not available on the app store for download - I created it for open-source hobbists.
+Dumphone is not available on the app store for download - Oz Tamir created the original project for open-source hobbists.
 
-## Features
-* Minimalist interface
+## Dumphone Features
+* Updated, stripped back, and [technu.de](https://technu.de) branded interface
 * Open-source, customizable codebase
 * Supports multiple profiles
-* Allows creating a Broke-compatible tags (requires a physical tag)
-
-## Creating a Broke tag
-To create a tag, you need to get a physical NFC tag - any tag compatible with iOS will do the trick - I used an NTAG213.
-
-I also created a 3D-printable model to carry tags around or stick them on the fridge - check it out [here](https://www.printables.com/model/983618-broke-tag-nfc-tag-cover-with-keychain-and-magnet-h).
-
-![tag](https://github.com/user-attachments/assets/7c961db0-7746-46c3-8fd2-17739ead49c1)
-
-Once you have a tag, you can use the interface of the Broke up to turn it into a tag - it will write a simple phrase that can be detected by the app to block/unblock.
+* Allows creating a Dumphone-compatible tags (requires a physical tag)
 
 ## Getting Started
-To use Broke, follow these steps:
-* Clone the repository.
+To use Dumphone, follow these steps:
+* Clone or fork the repository.
 * Open the project in Xcode.
 * Build and run the app on your iOS device.
+* Create one or more Dumphone tags
+
+## Creating a Dumphone tag
+To create a tag, you'll need a physical NFC tag compatible with iOS. Use the Dumphone app interface to turn the NFC tag into a Dumphone tag - it will write a simple phrase that can be detected by the app to turn your block profiles on and off.
+
+Oz Tamir created [a 3D-printable container for holdingNFC tags](https://www.printables.com/model/983618-broke-tag-nfc-tag-cover-with-keychain-and-magnet-h).

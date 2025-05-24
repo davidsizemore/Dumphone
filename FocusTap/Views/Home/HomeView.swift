@@ -2,7 +2,7 @@
 //  BrockerView.swift
 //  Broke
 //
-//  Created by Oz Tamir on 22/08/2024.
+//  Created by Oz Tamir on 23/08/2024. Updated UI by David Sizemore 23/05/2025.
 //
 
 import SwiftUI
@@ -77,39 +77,25 @@ struct HomeView: View {
   private func mainContent(geometry: GeometryProxy) -> some View {
     ZStack {
       VStack(spacing: 0) {
+        Spacer()
         blockOrUnblockButton(geometry: geometry)
+        Spacer()
         profilesList(geometry: geometry)
+          .padding(.bottom, 32)
       }
       .background(backgroundColor)
-    }
-    .onAppear {
-      let currentAppVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown"
-      let previousAppVersion = UserDefaults.standard.string(forKey: "appVersion") ?? "NAN"
-
-      if currentAppVersion != previousAppVersion {
-        UserDefaults.standard.set(currentAppVersion, forKey: "appVersion")
-        showWhatsNewPage = true
-      } else {
-        showWhatsNewPage = false
-      }
+      .frame(maxHeight: .infinity, alignment: .bottom)
     }
   }
 
   private func profilesList(geometry: GeometryProxy) -> some View {
     ProfilesPickerView(profileManager: profileManager)
-      .frame(height: geometry.size.height / 2)
-      .offset(y: isBlocking ? UIScreen.main.bounds.height : 0)
       .animation(.easeOut(duration: 1), value: isBlocking)
   }
 
   // MARK: - UI Components
   private func blockOrUnblockButton(geometry: GeometryProxy) -> some View {
     VStack(spacing: 8) {
-      Text(isBlocking ? HomeStrings.tapToUnblock : HomeStrings.tapToBlock)
-        .font(.caption)
-        .opacity(0.75)
-        .transition(.scale)
-
       Button(action: {
         withAnimation(.spring()) {
           scanTag()
@@ -118,12 +104,10 @@ struct HomeView: View {
         Image(isBlocking ? "RedIcon" : "GreenIcon")
           .resizable()
           .aspectRatio(contentMode: .fit)
-          .frame(height: geometry.size.height / 3)
+          .frame(width: 240, height: 240)
       }
       .transition(.scale)
     }
-    .frame(maxWidth: .infinity, maxHeight: .infinity)
-    .frame(height: isBlocking ? geometry.size.height : geometry.size.height / 2)
     .animation(.spring(), value: isBlocking)
   }
 
@@ -131,7 +115,7 @@ struct HomeView: View {
     Button(action: {
       showAboutPage.toggle()
     }) {
-      Image(systemName: "questionmark.circle.fill")
+      Image(systemName: "questionmark")
     }
   }
 
@@ -139,7 +123,7 @@ struct HomeView: View {
     Button(action: {
       alertType = .createTag
     }) {
-      Image(systemName: "plus")
+      Image(systemName: "radiowaves.right")
     }
     .disabled(!NFCNDEFReaderSession.readingAvailable)
   }
@@ -153,22 +137,32 @@ struct HomeView: View {
     switch type {
     case .wrongTag:
       return Alert(
-        title: Text(.wrongTag(.title)),
-        message: Text(.wrongTag(.message)),
-        dismissButton: .default(Text(.ok))
+        title: Text(.wrongTag(.title))
+          .font(.system(.headline, design: .monospaced)),
+        message: Text(.wrongTag(.message))
+          .font(.system(.body, design: .monospaced)),
+        dismissButton: .default(Text(.ok)
+          .font(.system(.body, design: .monospaced)))
       )
     case .notFocusTag:
       return Alert(
-        title: Text(.notFocusTag(.title)),
-        message: Text(.notFocusTag(.message)),
-        dismissButton: .default(Text(.ok))
+        title: Text(.notFocusTag(.title))
+          .font(.system(.headline, design: .monospaced)),
+        message: Text(.notFocusTag(.message))
+          .font(.system(.body, design: .monospaced)),
+        dismissButton: .default(Text(.ok)
+          .font(.system(.body, design: .monospaced)))
       )
     case .createTag:
       return Alert(
-        title: Text(.createTag(.title)),
-        message: Text(.createTag(.message)),
-        primaryButton: .default(Text(.create)) { createFocusTag() },
-        secondaryButton: .cancel(Text(.cancel))
+        title: Text(.createTag(.title))
+          .font(.system(.headline, design: .monospaced)),
+        message: Text(.createTag(.message))
+          .font(.system(.body, design: .monospaced)),
+        primaryButton: .default(Text(.create)
+          .font(.system(.body, design: .monospaced))) { createFocusTag() },
+        secondaryButton: .cancel(Text(.cancel)
+          .font(.system(.body, design: .monospaced)))
       )
     }
   }
@@ -225,4 +219,11 @@ struct HomeView: View {
   private func createFocusTag() {
     nfcReader.write(profileManager.currentProfile.tagPhrase)
   }
+}
+
+#Preview {
+    HomeView()
+        .environmentObject(AppBlocker.shared)
+        .environmentObject(ProfileManager.shared)
+        .preferredColorScheme(.dark)
 }

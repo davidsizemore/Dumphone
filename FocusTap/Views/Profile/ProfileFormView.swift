@@ -173,3 +173,8 @@ struct ProfileFormView: View {
     onDismiss()
   }
 }
+
+#Preview {
+    ProfileFormView(profileManager: ProfileManager.shared) {}
+        .preferredColorScheme(.dark)
+}

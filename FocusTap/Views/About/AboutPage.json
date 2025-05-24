@@ -6,16 +6,24 @@
     "listRowBackgroundOpacity": 0.2
   },
   "aboutHeader": {
-    "title": "About Focus Tap",
-    "text": "FocusTap helps you stay focused by using NFC tags block apps that distract you"
+    "title": "About Dumphone",
+    "text": "Dumphone uses NFC tags to block apps that distract you. Hit the icon and tap a tag to enter Dumphone mode.\n\nTo format an NFC tag, use the plus in the upper right. Add new blocked profiles with the plus button, or edit an existing profile by pressing and holding it.\n\nDumphone is an open source fork of FocusTap, which is a fork of Broke."
   },
   "sections": [
     {
       "title": "Project Links",
       "links": [
         {
+          "url": "https://github.com/davidsizemore/Dumphone",
+          "text": "View Dumphone",
+          "primaryImage": "github-logo",
+          "primaryImageType": "asset",
+          "secondaryImage": "arrow.up.right.square",
+          "secondaryImageType": "system"
+        },
+        {
           "url": "https://github.com/Walker123t/FocusTap",
-          "text": "View project on Github",
+          "text": "View FocusTap",
           "primaryImage": "github-logo",
           "primaryImageType": "asset",
           "secondaryImage": "arrow.up.right.square",
@@ -23,39 +31,10 @@
         },
         {
           "url": "https://github.com/OzTamir/broke",
-          "text": "View original project's Github",
+          "text": "View Broke",
           "primaryImage": "github-logo",
           "primaryImageType": "asset",
           "secondaryImage": "arrow.up.right.square",
-          "secondaryImageType": "system"
-        }
-      ]
-    },
-    {
-      "title": "Tell Me What You Think",
-      "links": [
-        {
-          "url": "mailto:FocusTapSupport@proton.me?subject=FocusTap%20Bug%20Report",
-          "text": "Report a Bug",
-          "primaryImage": "ant.circle",
-          "primaryImageType": "system",
-          "secondaryImage": "envelope",
-          "secondaryImageType": "system"
-        },
-        {
-          "url": "mailto:FocusTapSupport@proton.me?subject=FocusTap%20Feedback",
-          "text": "Feedback",
-          "primaryImage": "text.bubble",
-          "primaryImageType": "system",
-          "secondaryImage": "envelope",
-          "secondaryImageType": "system",
-        },
-        {
-          "url": "mailto:FocusTapSupport@proton.me?subject=FocusTap%20Idea",
-          "text": "Idea",
-          "primaryImage": "lightbulb.min.badge.exclamationmark.fill",
-          "primaryImageType": "system",
-          "secondaryImage": "envelope",
           "secondaryImageType": "system"
         }
       ]
