@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct FocusTapApp: App {
+struct DumphoneApp: App {
   @StateObject private var appBlocker = AppBlocker.shared
   @StateObject private var profileManager = ProfileManager.shared
 

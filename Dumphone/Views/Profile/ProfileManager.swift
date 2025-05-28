@@ -178,7 +178,6 @@ struct Profile: Identifiable, Codable {
   var appTokens: Set<ApplicationToken>
   var categoryTokens: Set<ActivityCategoryToken>
   var icon: String
-  var tagPhrase: String
   var requireMatchingTag: Bool
   var requireTagToBlock: Bool
 
@@ -192,7 +191,6 @@ struct Profile: Identifiable, Codable {
     self.appTokens = appTokens
     self.categoryTokens = categoryTokens
     self.icon = icon
-    self.tagPhrase = "focusTap://" + UUID().uuidString.prefix(8).uppercased()
     self.requireMatchingTag = requireMatchingTag
     self.requireTagToBlock = requireTagToBlock
   }
