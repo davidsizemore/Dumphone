@@ -8,10 +8,10 @@
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>CFBundleURLName</key>
-			<string>com.davidsizemoredesign.dumphone</string>
+			<string>com.davidsizemoredesign.Dumphone</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>focusTap</string>
+				<string>dumphone</string>
 			</array>
 		</dict>
 	</array>

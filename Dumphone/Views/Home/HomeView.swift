@@ -188,16 +188,13 @@ struct HomeView: View {
 
   private func handleUnblockingTag(payload: String, currentProfile: Profile) {
     if currentProfile.requireMatchingTag {
-      if payload == currentProfile.tagPhrase {
+      if String(payload.prefix(11)) == "dumphone://" {
         NSLog(.logs(.matchingTag))
         appBlocker.toggleBlocking(for: currentProfile)
         if let shortcutsURL = currentProfile.shortcutsURL,
            let url = URL(string: "shortcuts://run-shortcut?name=\(shortcutsURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")") {
           UIApplication.shared.open(url)
         }
-      } else if String(payload.prefix(11)) == "focusTap://" {
-        alertType = .wrongTag
-        NSLog(.logs(.wrongTag), payload)
       } else {
         alertType = .notFocusTag
         NSLog(.logs(.nonBrokeTag), payload)
@@ -213,14 +210,9 @@ struct HomeView: View {
   }
 
   private func handleBlockingTag(payload: String, currentProfile: Profile) {
-    if let matchingProfile = profileManager.profiles.first(where: { $0.tagPhrase == payload }) {
-      profileManager.setCurrentProfile(id: matchingProfile.id)
-      NSLog(.logs(.switchingProfile), matchingProfile.name)
-      appBlocker.toggleBlocking(for: matchingProfile)
-      if let shortcutsURL = matchingProfile.shortcutsURL,
-         let url = URL(string: "shortcuts://run-shortcut?name=\(shortcutsURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")") {
-        UIApplication.shared.open(url)
-      }
+    if String(payload.prefix(11)) == "dumphone://" {
+      NSLog(.logs(.usingCurrentProfile))
+      appBlocker.toggleBlocking(for: currentProfile)
     } else if !currentProfile.requireTagToBlock {
       appBlocker.toggleBlocking(for: currentProfile)
       if let shortcutsURL = currentProfile.shortcutsURL,
@@ -233,7 +225,7 @@ struct HomeView: View {
   }
 
   private func createFocusTag() {
-    nfcReader.write(profileManager.currentProfile.tagPhrase)
+    nfcReader.write("dumphone://Dumphone")
   }
 }
 

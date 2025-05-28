@@ -13,7 +13,7 @@
 
 /* Begin PBXFileReference section */
 		F51C38D02C77594E003B4EB3 /* CoreNFC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreNFC.framework; path = System/Library/Frameworks/CoreNFC.framework; sourceTree = SDKROOT; };
-		F5A3B05B2C733E3400BD6C7F /* FocusTap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FocusTap.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F5A3B05B2C733E3400BD6C7F /* Dumphone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dumphone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -22,7 +22,7 @@
 			membershipExceptions = (
 				Resources/Info.plist,
 			);
-			target = F5A3B05A2C733E3400BD6C7F /* FocusTap */;
+			target = F5A3B05A2C733E3400BD6C7F /* Dumphone */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
@@ -37,7 +37,7 @@
 /* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		3E3EB0E72DA95F0F006F4D0B /* FocusTap */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (3E3EB0F42DA95F0F006F4D0B /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 3E8881522DAAB6D90026FB87 /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = FocusTap; sourceTree = "<group>"; };
+		3E3EB0E72DA95F0F006F4D0B /* Dumphone */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (3E3EB0F42DA95F0F006F4D0B /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 3E8881522DAAB6D90026FB87 /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Dumphone; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,7 +64,7 @@
 		F5A3B0522C733E3400BD6C7F = {
 			isa = PBXGroup;
 			children = (
-				3E3EB0E72DA95F0F006F4D0B /* FocusTap */,
+				3E3EB0E72DA95F0F006F4D0B /* Dumphone */,
 				F5A3B05C2C733E3400BD6C7F /* Products */,
 				F51C38CF2C77594E003B4EB3 /* Frameworks */,
 			);
@@ -73,7 +73,7 @@
 		F5A3B05C2C733E3400BD6C7F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F5A3B05B2C733E3400BD6C7F /* FocusTap.app */,
+				F5A3B05B2C733E3400BD6C7F /* Dumphone.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -81,9 +81,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		F5A3B05A2C733E3400BD6C7F /* FocusTap */ = {
+		F5A3B05A2C733E3400BD6C7F /* Dumphone */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F5A3B0692C733E3500BD6C7F /* Build configuration list for PBXNativeTarget "FocusTap" */;
+			buildConfigurationList = F5A3B0692C733E3500BD6C7F /* Build configuration list for PBXNativeTarget "Dumphone" */;
 			buildPhases = (
 				F5A3B0572C733E3400BD6C7F /* Sources */,
 				F5A3B0582C733E3400BD6C7F /* Frameworks */,
@@ -94,14 +94,14 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				3E3EB0E72DA95F0F006F4D0B /* FocusTap */,
+				3E3EB0E72DA95F0F006F4D0B /* Dumphone */,
 			);
-			name = FocusTap;
+			name = Dumphone;
 			packageProductDependencies = (
 				F51C38E32C77E847003B4EB3 /* SFSymbolsPicker */,
 			);
 			productName = Broke;
-			productReference = F5A3B05B2C733E3400BD6C7F /* FocusTap.app */;
+			productReference = F5A3B05B2C733E3400BD6C7F /* Dumphone.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -119,7 +119,7 @@
 					};
 				};
 			};
-			buildConfigurationList = F5A3B0562C733E3400BD6C7F /* Build configuration list for PBXProject "FocusTap" */;
+			buildConfigurationList = F5A3B0562C733E3400BD6C7F /* Build configuration list for PBXProject "Dumphone" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -135,7 +135,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				F5A3B05A2C733E3400BD6C7F /* FocusTap */,
+				F5A3B05A2C733E3400BD6C7F /* Dumphone */,
 			);
 		};
 /* End PBXProject section */
@@ -282,16 +282,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = FocusTap/Resources/FocusTap.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_ENTITLEMENTS = Dumphone/Resources/Dumphone.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 0;
-				DEVELOPMENT_ASSET_PATHS = "\"FocusTap/Resources/Preview Content\"";
-				DEVELOPMENT_TEAM = PAVSXAXJJY;
+				DEVELOPMENT_ASSET_PATHS = "\"Dumphone/Resources/Preview Content\"";
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = UCL5625TDG;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = FocusTap/Resources/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Dumphone";
+				INFOPLIST_FILE = Dumphone/Resources/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Focus Tap";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NFCReaderUsageDescription = "Used to scan focus tags";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -304,9 +305,10 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 05.08.25;
-				PRODUCT_BUNDLE_IDENTIFIER = com.davidsizemoredesign.dumphone;
+				PRODUCT_BUNDLE_IDENTIFIER = com.shutUpAndCode.FocusTap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Focus Tap Development";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -322,16 +324,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = FocusTap/Resources/FocusTap.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_ENTITLEMENTS = Dumphone/Resources/Dumphone.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 0;
-				DEVELOPMENT_ASSET_PATHS = "\"FocusTap/Resources/Preview Content\"";
-				DEVELOPMENT_TEAM = PAVSXAXJJY;
+				DEVELOPMENT_ASSET_PATHS = "\"Dumphone/Resources/Preview Content\"";
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = UCL5625TDG;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = FocusTap/Resources/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Dumphone";
+				INFOPLIST_FILE = Dumphone/Resources/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Focus Tap";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NFCReaderUsageDescription = "Used to scan focus tags";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -344,9 +347,10 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 05.08.25;
-				PRODUCT_BUNDLE_IDENTIFIER = com.davidsizemoredesign.dumphone;
+				PRODUCT_BUNDLE_IDENTIFIER = com.shutUpAndCode.FocusTap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Focus Tap Development";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -360,7 +364,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		F5A3B0562C733E3400BD6C7F /* Build configuration list for PBXProject "FocusTap" */ = {
+		F5A3B0562C733E3400BD6C7F /* Build configuration list for PBXProject "Dumphone" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F5A3B0672C733E3500BD6C7F /* Debug */,
@@ -369,7 +373,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F5A3B0692C733E3500BD6C7F /* Build configuration list for PBXNativeTarget "FocusTap" */ = {
+		F5A3B0692C733E3500BD6C7F /* Build configuration list for PBXNativeTarget "Dumphone" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F5A3B06A2C733E3500BD6C7F /* Debug */,
