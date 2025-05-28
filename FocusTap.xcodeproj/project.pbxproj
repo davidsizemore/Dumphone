@@ -291,7 +291,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FocusTap/Resources/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Focus Tap";
+				INFOPLIST_KEY_CFBundleDisplayName = "Dumphone";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NFCReaderUsageDescription = "Used to scan focus tags";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -331,7 +331,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FocusTap/Resources/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Focus Tap";
+				INFOPLIST_KEY_CFBundleDisplayName = "Dumphone";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NFCReaderUsageDescription = "Used to scan focus tags";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
