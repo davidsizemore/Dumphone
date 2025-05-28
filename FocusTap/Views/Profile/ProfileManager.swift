@@ -125,7 +125,8 @@ class ProfileManager: ObservableObject {
     categoryTokens: Set<ActivityCategoryToken>? = nil,
     icon: String? = nil,
     requireMatchingTag: Bool? = nil,
-    requireTagToBlock: Bool? = nil
+    requireTagToBlock: Bool? = nil,
+    shortcutsURL: String? = nil
   ) {
     if let index = profiles.firstIndex(where: { $0.id == id }) {
       if let name = name {
@@ -145,6 +146,9 @@ class ProfileManager: ObservableObject {
       }
       if let requireTagToBlock = requireTagToBlock {
         profiles[index].requireTagToBlock = requireTagToBlock
+      }
+      if let shortcutsURL = shortcutsURL {
+        profiles[index].shortcutsURL = shortcutsURL
       }
 
       if currentProfileId == id {
@@ -181,12 +185,13 @@ struct Profile: Identifiable, Codable {
   var tagPhrase: String
   var requireMatchingTag: Bool
   var requireTagToBlock: Bool
+  var shortcutsURL: String?
 
   var isDefault: Bool {
     name == "Default"
   }
 
-  init(name: String, appTokens: Set<ApplicationToken>, categoryTokens: Set<ActivityCategoryToken>, icon: String = "bell.slash", requireMatchingTag: Bool = false, requireTagToBlock: Bool = true) {
+  init(name: String, appTokens: Set<ApplicationToken>, categoryTokens: Set<ActivityCategoryToken>, icon: String = "bell.slash", requireMatchingTag: Bool = false, requireTagToBlock: Bool = true, shortcutsURL: String? = nil) {
     self.id = UUID()
     self.name = name
     self.appTokens = appTokens
@@ -195,5 +200,6 @@ struct Profile: Identifiable, Codable {
     self.tagPhrase = "focusTap://" + UUID().uuidString.prefix(8).uppercased()
     self.requireMatchingTag = requireMatchingTag
     self.requireTagToBlock = requireTagToBlock
+    self.shortcutsURL = shortcutsURL
   }
 }

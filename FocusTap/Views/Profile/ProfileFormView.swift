@@ -18,6 +18,7 @@ struct ProfileFormView: View {
   @State private var showDeleteConfirmation = false
   @State private var requireMatchingTag: Bool
   @State private var requireTagToBlock: Bool
+  @State private var shortcutsURL: String
   @State private var isActivityPickerPresented = false
   let profile: Profile?
   let onDismiss: () -> Void
@@ -31,6 +32,7 @@ struct ProfileFormView: View {
     _profileIcon = State(initialValue: profile?.icon ?? "bell.slash")
     _requireMatchingTag = State(initialValue: profile?.requireMatchingTag ?? false)
     _requireTagToBlock = State(initialValue: profile?.requireTagToBlock ?? true)
+    _shortcutsURL = State(initialValue: profile?.shortcutsURL ?? "")
 
     if let profile = profile {
       var tempSelection = FamilyActivitySelection()
@@ -76,23 +78,31 @@ struct ProfileFormView: View {
             FTFamilyActivityPicker(selection: $activitySelection)
           }
 
-          VStack(alignment: .leading, spacing: 8) {
-            HStack {
-              Text(.blockedAppsBodyText)
-              Spacer()
-              Text("\(activitySelection.applicationTokens.count)")
-                .fontWeight(.bold)
-            }
-            HStack {
-              Text(.blockedCategoriesBodyText)
-              Spacer()
-              Text("\(activitySelection.categoryTokens.count)")
-                .fontWeight(.bold)
-            }
-            Text(.appConfigurationDescription)
+          Text(.appConfigurationDescription)
+            .font(.caption)
+            .foregroundColor(.secondary)
+
+          if !activitySelection.applicationTokens.isEmpty {
+            Text(.blockedAppsBodyText)
               .font(.caption)
-              .foregroundColor(.secondary)
+            Text("\(activitySelection.applicationTokens.count)")
+              .font(.caption)
           }
+
+          if !activitySelection.categoryTokens.isEmpty {
+            Text(.blockedCategoriesBodyText)
+              .font(.caption)
+            Text("\(activitySelection.categoryTokens.count)")
+              .font(.caption)
+          }
+        }
+
+        Section(header: Text("Shortcuts")) {
+          TextField("Shortcut Name (optional)", text: $shortcutsURL)
+            .autocapitalization(.none)
+          Text("Enter the name of the Shortcut to run in the background when this profile is activated")
+            .font(.caption)
+            .foregroundColor(.secondary)
         }
 
         Section(header: Text(.securitySectionHeader)) {
@@ -157,7 +167,8 @@ struct ProfileFormView: View {
         categoryTokens: activitySelection.categoryTokens,
         icon: profileIcon,
         requireMatchingTag: requireMatchingTag,
-        requireTagToBlock: requireTagToBlock
+        requireTagToBlock: requireTagToBlock,
+        shortcutsURL: shortcutsURL.isEmpty ? nil : shortcutsURL
       )
     } else {
       let newProfile = Profile(
@@ -166,7 +177,8 @@ struct ProfileFormView: View {
         categoryTokens: activitySelection.categoryTokens,
         icon: profileIcon,
         requireMatchingTag: requireMatchingTag,
-        requireTagToBlock: requireTagToBlock
+        requireTagToBlock: requireTagToBlock,
+        shortcutsURL: shortcutsURL.isEmpty ? nil : shortcutsURL
       )
       profileManager.addProfile(newProfile: newProfile)
     }

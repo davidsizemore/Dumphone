@@ -191,6 +191,10 @@ struct HomeView: View {
       if payload == currentProfile.tagPhrase {
         NSLog(.logs(.matchingTag))
         appBlocker.toggleBlocking(for: currentProfile)
+        if let shortcutsURL = currentProfile.shortcutsURL,
+           let url = URL(string: "shortcuts://run-shortcut?name=\(shortcutsURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")") {
+          UIApplication.shared.open(url)
+        }
       } else if String(payload.prefix(11)) == "focusTap://" {
         alertType = .wrongTag
         NSLog(.logs(.wrongTag), payload)
@@ -201,6 +205,10 @@ struct HomeView: View {
     } else {
       NSLog(.logs(.noMatchRequired))
       appBlocker.toggleBlocking(for: currentProfile)
+      if let shortcutsURL = currentProfile.shortcutsURL,
+         let url = URL(string: "shortcuts://run-shortcut?name=\(shortcutsURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")") {
+        UIApplication.shared.open(url)
+      }
     }
   }
 
@@ -209,8 +217,16 @@ struct HomeView: View {
       profileManager.setCurrentProfile(id: matchingProfile.id)
       NSLog(.logs(.switchingProfile), matchingProfile.name)
       appBlocker.toggleBlocking(for: matchingProfile)
+      if let shortcutsURL = matchingProfile.shortcutsURL,
+         let url = URL(string: "shortcuts://run-shortcut?name=\(shortcutsURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")") {
+        UIApplication.shared.open(url)
+      }
     } else if !currentProfile.requireTagToBlock {
       appBlocker.toggleBlocking(for: currentProfile)
+      if let shortcutsURL = currentProfile.shortcutsURL,
+         let url = URL(string: "shortcuts://run-shortcut?name=\(shortcutsURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")") {
+        UIApplication.shared.open(url)
+      }
     } else {
       alertType = .notFocusTag
     }
